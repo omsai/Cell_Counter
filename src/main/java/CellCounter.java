@@ -54,6 +54,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -199,7 +200,9 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.ipadx = 5;
 		gb.setConstraints(dynPanel, gbc);
-		getContentPane().add(dynPanel);
+		// add a vertical scroll bar to the "Counters" panel
+		JScrollPane scrollPane = new JScrollPane(dynPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		getContentPane().add(scrollPane);
 
 		dynButtonPanel.add(makeDynRadioButton(1));
 		dynButtonPanel.add(makeDynRadioButton(2));
@@ -441,6 +444,9 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		gbc.ipadx = 5;
 		gb.setConstraints(statButtonPanel, gbc);
 		getContentPane().add(statButtonPanel);
+
+		// limit scrollPane to statButtonPanel size
+		scrollPane.setPreferredSize(new Dimension(150, 400));
 
 		final Runnable runner = new GUIShower(this);
 		EventQueue.invokeLater(runner);
